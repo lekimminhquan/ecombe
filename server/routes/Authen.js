@@ -1,7 +1,9 @@
 import express from 'express';
 import logins from '../models/user.js'
+import dotenv from'dotenv'
+dotenv.config()
 
-const router = express.Router()
+const router = express.Router();
 
 router.post('/', async (req, res) => {
     const { username, password } = req.body
@@ -12,7 +14,7 @@ router.post('/', async (req, res) => {
         }
         else {
             if (user.password == password) {
-                return res.send({ message: true, user })
+                return res.send({ Token: process.env.COFIRM_LOGIN  , user })
             }
             else {
                 return res.json({ message: "Sai mật khẩu!" })

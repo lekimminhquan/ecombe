@@ -11,14 +11,25 @@ router.get('/',async(req,res)=>{
         res.status(500).json({ message: error.message })
     }
 })
+router.get('/:categoryId',async(req,res)=>{
+    const {categoryId} = req.params
+    try {
+        const product = await Product.find({categoryId})
+        return res.send(product)
+    } catch (error) {
+        res.send(categoryId)
+    }
+})
 
 router.post('/',async (req,res)=>{
     const {productname,decription,price,category} = req.body
     const newProduct = new Product({
         productname:req.body.productname,
+        image:req.body.image,
         decription:req.body.decription,
         price:req.body.price,
-        category:req.body.category,
+        categoryId:req.body.categoryId,
+        brand:req.body.brand
     })
     try {
         const checkProduct = await Product.findOne({productname})
@@ -49,10 +60,12 @@ router.delete('/:id',async (req,res)=>{
 router.put('/:id', async (req, res) => {
     const {id} = req.params
     const {price} = req.body
+    const {categoryId} =req.body
     var fixproduct
     try {
         fixproduct = await Product.findById(id)
         fixproduct.price = price
+        fixproduct.categoryId = categoryId
         fixproduct.save()
         if(fixproduct != null){
             res.send(fixproduct)
@@ -61,7 +74,6 @@ router.put('/:id', async (req, res) => {
         return res.json({message:error.message})
     }
 })
-
 
 
 async function getProduct(req, res, next) {

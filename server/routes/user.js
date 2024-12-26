@@ -1,7 +1,9 @@
 import express from 'express';
 import Users from '../models/user.js'
-const router = express.Router();
+import 'dotenv/config'
 
+
+const router = express.Router()
 router.get('/', async (req, res) => {
     try {
         const user = await Users.find()

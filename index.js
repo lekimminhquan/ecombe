@@ -5,6 +5,7 @@ import mainRoute from './server/routes/user.js'
 import Authenroute from './server/routes/Authen.js'
 import showproduct from './server/routes/product.js'
 import Category from './server/routes/category.js'
+import Detalorder from './server/routes/chitietdonhang.js'
 import cors from 'cors'
 dotenv.config()
 
@@ -24,6 +25,7 @@ app.use('/user', mainRoute);
 app.use('/authen', Authenroute);
 app.use('/product',showproduct)
 app.use('/category',Category)
+app.use('/detailorder', Detalorder)
 
 // app.get('/',(req,res)=>{
 //     res.status(200).json({
